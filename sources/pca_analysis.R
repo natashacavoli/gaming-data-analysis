@@ -19,6 +19,8 @@ head(data)
 # Columns to analyse
 head(data[, 5:10])
 
+data <- data[complete.cases(data[, 5:10]), ]
+
 # Standardize the data using Z Score
 data_std <- data.frame(scale(data[, 5:10]))
 
@@ -138,7 +140,7 @@ factor_2 <- rowSums(factor_2)
 
 # Add factors to database
 data["factor_1"] <- factor_1
-data["factor_2"] <- factor_2
+data["factor_2"] <- factor_2  * -1
 
 head(data)
 
@@ -151,9 +153,11 @@ round(cor(
   data[c("factor_1", "factor_2")]),
   digits=10)
 
-# Ranking
+# Rating
 data <- mutate(
   data,
-  points=factor_1 * proportion_variance[1] + factor_2 + proportion_variance[2])
+  points=factor_1 * proportion_variance[1] + factor_2 * proportion_variance[2])
 
-head(data[order(-data$points), ])
+head(data[order(-data$points), ], n=10)
+
+head(data[order(data$points), ], n=10)
