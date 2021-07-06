@@ -156,8 +156,8 @@ round(cor(
 # Rating
 data <- mutate(
   data,
-  points=factor_1 * proportion_variance[1] + factor_2 * proportion_variance[2])
+  scores=factor_1 * proportion_variance[1] + factor_2 * proportion_variance[2])
 
-head(data[order(-data$points), ], n=10)
+head(data[order(-data$scores), ], n=10)
 
-head(data[order(data$points), ], n=10)
+head(data[order(data$scores), ], n=10)
